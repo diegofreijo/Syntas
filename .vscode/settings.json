@@ -3,5 +3,6 @@
         "**/.vs": true,
         "**/bin": true,
         "**/obj": true
-    }
+    },
+    "editor.inlayHints.enabled": "offUnlessPressed"
 }
