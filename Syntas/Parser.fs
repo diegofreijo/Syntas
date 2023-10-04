@@ -9,10 +9,13 @@ type Parser<'t> = Parser<'t, unit>
 let str = pstring
 let ws = spaces
 
-let value: Parser<_> = pfloat |>> Value.Number
+let value: Parser<_> = pfloat |>> Number
 
-let expression =
-    value |>>  Expression.Value
+let addition = (value .>>. (ws >>. (str "+") >>. ws >>. value)) |>> Addition
+let operation = addition
 
-let program = 
-    expression |>> SyntasProgram.Expression
+
+let expression = choice [ attempt operation |>> Operation; value |>> Value ]
+
+
+let program = expression |>> Expression
